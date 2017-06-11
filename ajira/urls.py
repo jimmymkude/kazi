@@ -18,7 +18,7 @@ urlpatterns = [
     # ajira/login
     url(r'^login/$', views.UserLoginFormView.as_view(), name='login'),
     # ajira/logout
-    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^logout/$', views.logout_view, name='logout'),
     # ajira/3/upload
     #url(r'^(?P<pk>[0-9]+)/upload/$', views.upload_file, name='upload_post'),
 

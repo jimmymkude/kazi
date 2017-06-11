@@ -111,22 +111,18 @@ class UserLoginFormView(generic.View):
     def post(self, request):
         form = self.form_class(data=request.POST)
 
-        if form.is_valid():
-            #user = form.save(commit=False)
+        username = request.POST['username']
+        password = request.POST['password']
 
-            # cleaned (normalized) data
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+        # returns User objects if credentials are correct
+        user = authenticate(request, username=username, password=password)
 
-            # returns User objects if credentials are correct
-            user = authenticate(request, username=username, password=password)
-
-            if user is not None:
-                # if user's account did not get banned or disabled
-                if user.is_active:
-                    login(request, user)
-                    # request.user.username
-                    return redirect('ajira:index')
+        if user is not None:
+            # if user's account did not get banned or disabled
+            if user.is_active:
+                login(request, user)
+                # request.user.username
+                return redirect('ajira:index')
 
         return render(request, self.template_name, {'form': form})
 
