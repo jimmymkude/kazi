@@ -11,7 +11,7 @@ class PostInline(admin.TabularInline):
 
 class UserAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['first_name', 'middle_initial', 'last_name', 'email']}),
+        (None, {'fields': ['first_name', 'middle_initial', 'last_name', 'email', 'username']}),
     ]
     inlines = [PostInline]
 

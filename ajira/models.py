@@ -1,7 +1,7 @@
 from django.db import models
 from django import forms
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, UserManager
 
 # Create your models here.
 
@@ -12,6 +12,9 @@ class AjiraUser(User):
     #last_name = models.CharField(max_length=50)
     #email = models.EmailField(name="email")
     #password = forms.CharField(max_length=32, widget=forms.PasswordInput)
+
+    # Use UserManager to get the create_user method, etc.
+    objects = UserManager()
 
     def __str__(self):
         return self.last_name + ", " + self.first_name + " " + self.middle_initial

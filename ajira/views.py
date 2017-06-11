@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import generic
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
@@ -9,8 +8,8 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-from .forms import UserForm, UserLoginForm
-from .models import Post, User
+from .forms import UserForm, UserLoginForm, PostCreateForm
+from .models import Post, AjiraUser
 from .serializers import PostSerializer
 
 
@@ -47,17 +46,41 @@ class PostDetailView(generic.DetailView):
     context_object_name = 'post'
 
 
-class PostCreateView(generic.CreateView):
-    model = Post
-    fields = ['image', 'title', 'description', 'link', 'company', 'lifetime_in_days']
+class PostCreateView(generic.View):
+    form_class = PostCreateForm
+    template_name = 'ajira/post_form.html'
 
+    # display blank form for user to create post if signed in
+    def get(self, request):
+        if request.user.is_authenticated():
+            form = self.form_class(data=None)
+            return render(request, self.template_name, {'form': form})
+
+        return HttpResponseRedirect(reverse('ajira:register'))
+
+    # process form data
+    def post(self, request):
+        form = self.form_class(request.POST, request.FILES)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+
+            return HttpResponseRedirect(reverse('ajira:detail', args=(post.id,)))
+
+        return render(request, self.template_name, {'form': form})
+
+
+    """
     def form_valid(self, form):
         post = form.instance
-        # get the signed in user's primary key
 
+        # get the signed in user's primary key
         post.user = get_object_or_404(User, pk=3)
         self.object = form.save()
         return HttpResponseRedirect(reverse('ajira:detail', args=(post.id,)))
+    """
 
 
 # Sign up form

@@ -1,11 +1,13 @@
 from django import forms
 #from django.contrib.auth.models import User
-from .models import AjiraUser
+from .models import AjiraUser, Post
 
 
-class UploadPostForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.ImageField(label='Select an image')
+class PostCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = ['image', 'title', 'description', 'link', 'company', 'lifetime_in_days']
 
 
 class UserLoginForm(forms.ModelForm):
