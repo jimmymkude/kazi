@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, Post
+from .models import AjiraUser, Post
 # Register your models here.
 
 
@@ -16,4 +16,4 @@ class UserAdmin(admin.ModelAdmin):
     inlines = [PostInline]
 
 #admin.site.register(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(AjiraUser, UserAdmin)

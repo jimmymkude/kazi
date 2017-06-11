@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'ajira',
 ]
 
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'kazi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'kazi_db',
+        'NAME': 'kazi_db_test',
         'USER': 'root',
         'PASSWORD': 'KaziAjira',
         'HOST': '127.0.0.1',
