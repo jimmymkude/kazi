@@ -1,0 +1,17 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ajira/style.css' %}" />
+<a href="{% url 'ajira:add_post' %}">Add a Post</a>
+{% if posts_list %}
+    <ul>
+    {% for post in posts_list %}
+        <li>
+            <img src="{{ post.image.url }}" width="50" height="50"/>
+            <a href="{% url 'ajira:detail' post.id%} ">{{ post }}</a>
+        </li>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
