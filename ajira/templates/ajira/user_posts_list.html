@@ -1,0 +1,45 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajira Home</title>
+</head>
+
+<link rel="stylesheet" type="text/css" href="{% static 'ajira/style.css' %}" />
+
+{% if user.is_authenticated %}
+    <p>
+        <a href="{% url 'ajira:index' %}">Home</a>
+        <a href="{% url 'ajira:add_post' %}">Add a Post</a>
+        <a href="{% url 'ajira:edit_posts'%}">Manage Posts</a>
+        <a href="{% url 'ajira:logout' %}">Log out</a>
+    </p>
+    <br>
+    <br>
+    <p>Hello, {{ user.username }}</p>
+    {% if user_posts %}
+        <h3>My Job Postings</h3>
+        <ul>
+        {% for post in user_posts %}
+            <li>
+                <img src="{{ post.image.url }}" width="50" height="50"/>
+                <a href="{% url 'ajira:edit_post' post.id%} ">{{ post }}</a>
+
+                <!-- Delete -->
+                <form action="{% url 'ajira:delete_post' post.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </form>
+            </li>
+
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No posts are available.</p>
+    {% endif %}
+{% else %}
+    <p><a href="{% url 'ajira:register' %}">Sign Up</a></p>
+    <p><a href="{% url 'ajira:login' %}">Sign In</a></p>
+{% endif %}

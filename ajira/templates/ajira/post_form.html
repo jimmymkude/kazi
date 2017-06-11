@@ -1,4 +1,8 @@
-{% block title %}Add a New Post{% endblock %}
+{% if edit %}
+    <title>Edit Post</title>
+{% else %}
+    <title>Add a New Post</title>
+{% endif %}
 
 
 {%block body %}

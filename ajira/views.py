@@ -1,14 +1,14 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import generic
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.forms.models import model_to_dict
 
-
-from .forms import UserForm, UserLoginForm, PostCreateForm
+from .forms import UserForm, UserLoginForm, PostCreateForm, PostEditForm
 from .models import Post, AjiraUser
 from .serializers import PostSerializer
 
@@ -28,7 +28,8 @@ class IndexView(generic.ListView):
     def get(self, request):
         user = request.user
         if user.is_authenticated():
-            return render(request, self.template_name, {'user': user})
+            recommended_posts = Post.objects.filter(title__contains='Computer')[:3]
+            return render(request, self.template_name, {'user': user, self.context_object_name: recommended_posts})
 
         return render(request, self.template_name, {self.context_object_name: Post.objects.all()})
 
@@ -38,6 +39,52 @@ class IndexView(generic.ListView):
         :return: A list of posts to be displayed
         """
         return Post.objects.all()
+
+
+class UserPostListView(generic.ListView):
+    template_name = 'ajira/user_posts_list.html'
+    context_object_name = 'user_posts'
+
+    def get(self, request):
+        user = request.user
+        if user.is_authenticated():
+            context = {'user': user, self.context_object_name: user.post_set.all()}
+            return render(request, self.template_name, context)
+
+        return render(request, self.template_name, {})
+
+
+class UserPostEditView(generic.View):
+    template_name = 'ajira/post_form.html'
+    context_object_name = 'post'
+    form_class = PostEditForm
+
+    # display filled in form for user to edit post
+    def get(self, request, pk):
+        if request.user.is_authenticated():
+            post = Post.objects.get(pk=pk)
+            form = self.form_class(instance=post)
+            return render(request, self.template_name, {'form': form, 'edit': True})
+
+        return HttpResponseRedirect(reverse('ajira:login'))
+
+    # process form data
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        form = self.form_class(request.POST, request.FILES, instance=post)
+
+        if form.is_valid():
+            #post.user = request.user
+            post.save()
+
+            return HttpResponseRedirect(reverse('ajira:edit_posts'))
+
+        return render(request, self.template_name, {'form': form})
+
+
+class UserPostDeleteView(generic.DeleteView):
+    model = Post
+    success_url = reverse_lazy('ajira:edit_posts')
 
 
 class PostDetailView(generic.DetailView):

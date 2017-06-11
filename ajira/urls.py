@@ -15,6 +15,12 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/$', views.PostDetailView.as_view(), name='detail'),
     # ajira/add/post
     url(r'^add/post/$', views.PostCreateView.as_view(), name='add_post'),
+    # ajira/pk/edit/posts
+    url(r'^edit/posts/$', views.UserPostListView.as_view(), name='edit_posts'),
+    # ajira/pk/edit/post
+    url(r'^(?P<pk>[0-9]+)/edit/post/$', views.UserPostEditView.as_view(), name='edit_post'),
+    # ajira/edit/post/pk/delete
+    url(r'^edit/post/(?P<pk>[0-9]+)/delete/$', views.UserPostDeleteView.as_view(), name='delete_post'),
     # ajira/login
     url(r'^login/$', views.UserLoginFormView.as_view(), name='login'),
     # ajira/logout

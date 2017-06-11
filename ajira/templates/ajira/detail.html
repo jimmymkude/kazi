@@ -5,10 +5,13 @@
     <title>{{ post.title }}</title>
 </head>
 <body>
+    <p>
+        <a href="{% url 'ajira:index' %}">Home</a>
+    </p>
     <h1>{{ post.title }}</h1>
     <h3>{{ post.company }}</h3>
     <img src="{{ post.image.url }}" width="300" height="300"/>
-    <h4>Description:</h4>
+    <h4>Job Description:</h4>
     <p>{{ post.description }} </p>
 </body>
 </html>

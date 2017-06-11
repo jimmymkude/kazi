@@ -10,6 +10,13 @@ class PostCreateForm(forms.ModelForm):
         fields = ['image', 'title', 'description', 'link', 'company', 'lifetime_in_days']
 
 
+class PostEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = ['image', 'title', 'description', 'link', 'company', 'lifetime_in_days']
+
+
 class UserLoginForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
 
