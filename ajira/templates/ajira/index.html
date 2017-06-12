@@ -1,39 +1,98 @@
 {% extends 'ajira/base.html' %}
+{% load ajira_extras %}
 {% block title %}Ajira{% endblock %}
 {% block body %}
-    <br>
-    <br>
-    {% if user.is_authenticated %}
-        <p>Hello, {{ user.username }}</p>
-        <h4>Jobs that may interest you</h4>
-        {% if posts_list %}
-            <ul>
-            {% for post in posts_list %}
-                <li>
-                    <img src="{{ post.image.url }}" width="50" height="50"/>
-                    <a href="{% url 'ajira:detail' post.id%} ">{{ post }}</a>
-                </li>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- bootstrap grid system class -->
+        <!-- xs (for phones), sm (tablets), md (desktops/laptops), lg (large desktops)-->
+    <div class="container-fluid">
+        <div class="row main-row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 middle-section" >
+                {% if user.is_authenticated %}
+                    <div class="row">
+                        <div class="container-fluid">
+                            <h2>Hello, {{ user.username }}</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="container-fluid">
+                                <h4>Jobs that may interest you</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% if posts_list %}
+                                <div class="row">
+                                    {% for post in posts_list %}
+                                        <div class="col-md-4">
+                                            <div class="row post-img">
+                                                <a href="{% url 'ajira:detail' post.id%} ">
+                                                    <img src="{{ post.image.url }}" width="200" height="200"/>
+                                                </a>
+                                            </div>
 
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p>No posts are available.</p>
-        {% endif %}
+                                            <div class="row post-link">
+                                                <a href="{% url 'ajira:detail' post.id%} ">
+                                                    <p>{{ post.title }}</p>
+                                                </a>
+                                                <a href="{% url 'ajira:detail' post.id%} ">
+                                                    <p>{{ post.company }}</p>
+                                                </a>
+                                            </div>
+                                        </div>
 
-        <a href="{% url 'ajira:logout' %}">Log out</a>
-    {% else %}
-        {% if posts_list %}
-            <ul>
-            {% for post in posts_list %}
-                <li>
-                    <img src="{{ post.image.url }}" width="50" height="50"/>
-                    <a href="{% url 'ajira:detail' post.id%} ">{{ post }}</a>
-                </li>
+                                        {% if forloop.counter|remainder:3 == 0 %}
+                                            <!-- after 3 blocks break to a new row -->
+                                </div>
+                                        <div class="row">
+                                        {% endif %}
+                                    {% endfor %}
+                            {% else %}
+                                <p>No posts are available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% else %}
+                        <br><br><br>
+                    {% if posts_list %}
+                        <div class="row post-row">
+                            {% for post in posts_list %}
 
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p>No posts are available.</p>
-        {% endif %}
-    {% endif %}
+                                <div class="col-md-4">
+                                    <div class="row post-img">
+                                        <a href="{% url 'ajira:detail' post.id%} ">
+                                            <img src="{{ post.image.url }}" width="200" height="200"/>
+                                        </a>
+                                    </div>
+
+                                    <div class="row post-link">
+                                        <a href="{% url 'ajira:detail' post.id%} ">
+                                            <p>{{ post.title }}</p>
+                                        </a>
+                                        <a href="{% url 'ajira:detail' post.id%} ">
+                                            <p>{{ post.company }}</p>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                {% if forloop.counter|remainder:3 == 0 %}
+                                    <!-- after 3 blocks break to a new row -->
+                        </div>
+                                <div class="row post-row">
+                                {% endif %}
+
+                        {% endfor %}
+                                    <!-- to avoid multiple div closing tags -->
+                        {% if forloop.counter|remainder:3 != 0 %}
+                                </div>
+                        {% endif %}
+
+                    {% else %}
+                        <p>No posts are available.</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock%}

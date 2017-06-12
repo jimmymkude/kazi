@@ -1,22 +1,41 @@
 
-
 body {
-    //background-color: #ffffe6;
-    background: white url("images/water-glass.gif") no-repeat center center fixed;
+    //background-color: #fafafa;
+    background: #fafafa url("images/water-glass.gif") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    color: #6e6e6e;;
+
 }
 
 .navbar{
     border-radius: 0;
 }
 
+.row{
+    width: 100%;
+}
+
+.post-row{
+    margin-bottom: 20px;
+}
+
 .navbar-brand{
     font-family: 'Mogra', cursive;
 }
 
-li a {
-    color: green;
+ul {
+    list-style-type: none;
 }
+
+a {
+    color: white;
+}
+
+div.middle-section {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-left: 100px;
+}
+
