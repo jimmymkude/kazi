@@ -1,51 +1,38 @@
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ajira Home</title>
-</head>
+{% extends 'ajira/base.html' %}
+{% block body %}
+    <br>
+    <br>
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.username }}</p>
+        <h4>Jobs that may interest you</h4>
+        {% if posts_list %}
+            <ul>
+            {% for post in posts_list %}
+                <li>
+                    <img src="{{ post.image.url }}" width="50" height="50"/>
+                    <a href="{% url 'ajira:detail' post.id%} ">{{ post }}</a>
+                </li>
 
-<link rel="stylesheet" type="text/css" href="{% static 'ajira/style.css' %}" />
-<p>
-    <a href="{% url 'ajira:add_post' %}">Add a Post</a>
-</p>
-<br>
-<br>
-{% if user.is_authenticated %}
-    <p>
-        <a href="{% url 'ajira:edit_posts' %}">Manage Posts</a>
-    </p>
-    <p>Hello, {{ user.username }}</p>
-    <h4>Jobs that may interest you</h4>
-    {% if posts_list %}
-        <ul>
-        {% for post in posts_list %}
-            <li>
-                <img src="{{ post.image.url }}" width="50" height="50"/>
-                <a href="{% url 'ajira:detail' post.id%} ">{{ post }}</a>
-            </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No posts are available.</p>
+        {% endif %}
 
-        {% endfor %}
-        </ul>
+        <a href="{% url 'ajira:logout' %}">Log out</a>
     {% else %}
-        <p>No posts are available.</p>
-    {% endif %}
+        {% if posts_list %}
+            <ul>
+            {% for post in posts_list %}
+                <li>
+                    <img src="{{ post.image.url }}" width="50" height="50"/>
+                    <a href="{% url 'ajira:detail' post.id%} ">{{ post }}</a>
+                </li>
 
-    <a href="{% url 'ajira:logout' %}">Log out</a>
-{% else %}
-    <p><a href="{% url 'ajira:register' %}">Sign Up</a></p>
-    <p><a href="{% url 'ajira:login' %}">Sign In</a></p>
-    {% if posts_list %}
-        <ul>
-        {% for post in posts_list %}
-            <li>
-                <img src="{{ post.image.url }}" width="50" height="50"/>
-                <a href="{% url 'ajira:detail' post.id%} ">{{ post }}</a>
-            </li>
-
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No posts are available.</p>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No posts are available.</p>
+        {% endif %}
     {% endif %}
-{% endif %}
+{% endblock%}

@@ -1,3 +1,22 @@
+
+
 body {
-    background: white;
+    //background-color: #ffffe6;
+    background: white url("images/water-glass.gif") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+.navbar-brand{
+    font-family: 'Mogra', cursive;
+}
+
+li a {
+    color: green;
 }

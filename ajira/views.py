@@ -197,6 +197,12 @@ class UserLoginFormView(generic.View):
         return render(request, self.template_name, {'form': form})
 
 
+class UserEditProfileView(generic.DetailView):
+    model = AjiraUser
+    template_name ='ajira/edit_profile.html'
+    context_object_name = 'user'
+
+
 class AboutPageView(generic.TemplateView):
     template_name = "ajira/about.html"
 

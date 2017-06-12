@@ -1,11 +1,5 @@
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ajira Home</title>
-</head>
-
-<link rel="stylesheet" type="text/css" href="{% static 'ajira/style.css' %}" />
+{% extends 'ajira/base.html' %}
+{% block body %}
 
 {% if user.is_authenticated %}
     <p>
@@ -43,3 +37,5 @@
     <p><a href="{% url 'ajira:register' %}">Sign Up</a></p>
     <p><a href="{% url 'ajira:login' %}">Sign In</a></p>
 {% endif %}
+
+{% endblock %}

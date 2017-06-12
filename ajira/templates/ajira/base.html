@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajira</title>
+    {% load static %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mogra" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ajira/style.css' %}"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+
+<body>
+    <nav class="nav navbar-inverse">
+        <div class="container-fluid">
+            <!-- Header -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- Logo -->
+                <a class="navbar-brand" href="{% url 'ajira:index' %}">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp; Ajira
+                </a>
+            </div>
+
+            <!-- Nav bar items -->
+            <div class="collapse navbar-collapse" id="#topNavBar">
+
+                <form class="navbar-form navbar-left" role="search" method="get" action="#">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="query" value="" placeholder="Search Ajira">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                </form>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="{% url 'ajira:add_post' %}">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Post Job
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="">
+                            <a href="{% url 'ajira:edit_posts' %}">
+                                <span aria-hidden="true"></span>&nbsp;Manage Posts
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'ajira:edit_profile' user.id %}">
+                                <span aria-hidden="true"></span>&nbsp;Profile
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'ajira:logout' %}">
+                                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;Logout
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="">
+                            <a href="{% url 'ajira:register' %}">
+                                <span aria-hidden="true"></span>&nbsp;Sign Up
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'ajira:login' %}">
+                                <span aria-hidden="true"></span>&nbsp;Sign In
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>
