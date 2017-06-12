@@ -1,0 +1,21 @@
+{% extends 'ajira/base.html' %}
+{% load static %}
+    {% block title %}{{ user.first_name }} {{ user.last_name }} Profile{% endblock %}
+
+{% block body %}
+    <h1>{{ user.first_name }} {{ user.last_name }} profile</h1>
+    <a href="{% url 'ajira:edit_profile' user.id %}">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Edit Profile
+    </a>
+    <br>
+    <br>
+    <img src="{% static 'ajira/images/background.gif' %}" width="200" height="200"/>
+    <br>
+    <div>
+        <h3>Details:</h3>
+        <p>Job: {{ user.job_title }}</p>
+        <p>Company: {{ user.company_name }}</p>
+        <p>Resume: {{ user.resume }}</p>
+    </div>
+
+{% endblock %}

@@ -31,3 +31,10 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = AjiraUser
         fields = ['first_name', 'last_name', 'username', 'email', 'password']
+
+
+class UserEditProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = AjiraUser
+        fields = ['first_name', 'last_name', 'email', 'job_title', 'company_name', 'resume']

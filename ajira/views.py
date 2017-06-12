@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.forms.models import model_to_dict
 
-from .forms import UserForm, UserLoginForm, PostCreateForm, PostEditForm
+from .forms import UserForm, UserLoginForm, PostCreateForm, PostEditForm, UserEditProfileForm
 from .models import Post, AjiraUser
 from .serializers import PostSerializer
 
@@ -197,10 +197,38 @@ class UserLoginFormView(generic.View):
         return render(request, self.template_name, {'form': form})
 
 
-class UserEditProfileView(generic.DetailView):
+class UserProfileView(generic.DetailView):
     model = AjiraUser
-    template_name ='ajira/edit_profile.html'
+    template_name ='ajira/view_profile.html'
     context_object_name = 'user'
+
+
+class UserProfileEditView(generic.View):
+    template_name = 'ajira/edit_profile_form.html'
+    #context_object_name = 'user'
+    form_class = UserEditProfileForm
+
+    # display filled in form for user to edit post
+    def get(self, request, pk):
+        if request.user.is_authenticated():
+            user = AjiraUser.objects.get(pk=pk)
+            form = self.form_class(instance=user)
+            return render(request, self.template_name, {'form': form})
+
+        return HttpResponseRedirect(reverse('ajira:login'))
+
+    # process form data
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        form = self.form_class(request.POST, request.FILES, instance=post)
+
+        if form.is_valid():
+            #post.user = request.user
+            post.save()
+
+            return HttpResponseRedirect(reverse('ajira:edit_posts'))
+
+        return render(request, self.template_name, {'form': form})
 
 
 class AboutPageView(generic.TemplateView):

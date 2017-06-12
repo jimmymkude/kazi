@@ -12,9 +12,13 @@ class AjiraUser(User):
     #last_name = models.CharField(max_length=50)
     #email = models.EmailField(name="email")
     #password = forms.CharField(max_length=32, widget=forms.PasswordInput)
+    job_title = models.CharField(max_length=50, default="N/A")
+    company_name = models.CharField(max_length=50, default="N/A")
+    resume = models.FileField(name="resume", max_length=50, default="No resume uploaded", upload_to='media/resumes/%Y/%m/%d')
 
     # Use UserManager to get the create_user method, etc.
     objects = UserManager()
+
 
     def __str__(self):
         return self.last_name + ", " + self.first_name + " " + self.middle_initial
