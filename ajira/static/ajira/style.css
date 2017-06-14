@@ -121,6 +121,23 @@ a:active
     margin-left: 0px;
 }
 
+.dash {
+        position: absolute;
+        bottom: 32px;
+        left:20px;
+        width:15%;
+        height: 1px;
+        background-color:#6e6e6e;
+}
+
+.post-footer {
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: 20px;
+
+}
+
 .bg-title {
     font-size: 150%;
 }

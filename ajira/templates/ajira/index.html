@@ -95,14 +95,26 @@
                                 <div class="row post-link">
 
                                     <div class="title">
-                                        <a href="{% url 'ajira:detail' post.id%} ">
+                                        <a href="{% url 'ajira:detail' post.id%} " style="color: black;">
                                             <strong>{{ post.title }}</strong>
                                         </a>
                                     </div>
                                     <div class="company">
-                                        <a href="{% url 'ajira:detail' post.id%} ">
+                                        <a href="{% url 'ajira:detail' post.id%} " style="color: black;">
                                             {{ post.company }}
                                         </a>
+                                    </div>
+                                    <div class="location">
+                                        <span>
+                                            Dar-es-Salaam, TZ
+                                        </span>
+                                    </div>
+                                    <!-- the fancy line that looks like a border -->
+                                    <div class="dash"></div>
+                                    <div class="post-footer">
+                                        <span>
+                                            5 days ago
+                                        </span>
                                     </div>
 
                                 </div>
