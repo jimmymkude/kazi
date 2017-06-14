@@ -9,129 +9,119 @@
         <div class="row main-row">
             <div class="top-bar container section">
 
-                <div class="col-md-2">
-                    <div class="info-box info-box1">
-                        <span>
-                            <a href="#" class="number-link">2</a>
-                        </span>
-                        <br>
-                        <span>
-                            <a href="#" class="info-box-desc" style="color: #6e6e6e">Saved Jobs</a>
-                        </span>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="info-box">
-                        <span>
-                            <a href="#" class="number-link">4</a>
-                        </span>
-                        <br>
-                        <span>
-                            <a href="#" class="info-box-desc" style="color: #6e6e6e">Applied Jobs</a>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-8 middle-section section" >
                 {% if user.is_authenticated %}
-                    <div class="row">
-                        <div class="container-fluid">
-                            <h2>Hello, {{ user.username }}</h2>
+
+                    <div class="col-md-2">
+                        <div class="info-box info-box1">
+                            <span>
+                                <a href="#" class="number-link">2</a>
+                            </span>
+                            <br>
+                            <span>
+                                <a href="#" class="info-box-desc" style="color: #6e6e6e">Saved Jobs</a>
+                            </span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="row">
-                            <div class="container-fluid">
-                                <h4>Jobs that may interest you</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            {% if posts_list %}
-                                <div class="row">
-                                    {% for post in posts_list %}
-                                        <div class="col-md-4 post-box">
-                                            <div class="row post-img">
-                                                <a href="{% url 'ajira:detail' post.id%} ">
-                                                    <img src="{{ post.image.url }}" width="200" height="200"/>
-                                                </a>
-                                            </div>
 
-                                            <div class="row post-link">
-                                                <a href="{% url 'ajira:detail' post.id%} ">
-                                                    <p>{{ post.title }}</p>
-                                                <a href="{% url 'ajira:detail' post.id%} ">
-                                                    <p>{{ post.company }}</p>
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        {% if forloop.counter|remainder:4 == 0 %}
-                                            <!-- after 3 blocks break to a new row -->
-                                </div>
-                                        <div class="row">
-                                        {% endif %}
-                                    {% endfor %}
-                            {% else %}
-                                <p>No posts are available.</p>
-                            {% endif %}
+                    <div class="col-md-2">
+                        <div class="info-box">
+                            <span>
+                                <a href="#" class="number-link">4</a>
+                            </span>
+                            <br>
+                            <span>
+                                <a href="#" class="info-box-desc" style="color: #6e6e6e">Applied Jobs</a>
+                            </span>
                         </div>
                     </div>
-                {% else %}
-                        <br><br><br>
-                    {% if posts_list %}
-                        <div class=" row section-header">
+
+                {% endif %}
+
+            </div>
+
+            <div class="col-md-2"></div>
+
+            <div class="col-md-8 middle-section section" >
+
+                {% if posts_list %}
+
+                    <div class=" row section-header">
+
+                        {% if user.is_authenticated %}
+
                             <div class="bg-title">
                                 <strong>Jobs you may be interested in</strong>
                             </div>
                             <p>
-
                                 Any location &nbsp; | &nbsp;Any Industry&nbsp; | &nbsp;50 to 10,000+ employees...<a href="#" style="color: #000099;">Update career interests</a>
                             </p>
-                        </div>
-                        <div class="row post-row">
-                            {% for post in posts_list %}
-                            
-                                <div class="col-md-3 post-box">
-                                    <button type="button" class="close" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="row post-img">
+
+                        {% else %}
+
+                            <div class="bg-title">
+                                <strong>Job postings in your area</strong>
+                            </div>
+                            <p>
+                               <a href="{% url 'ajira:register' %}" style="color: #000099;">
+                                   Sign up
+                               </a>
+                                or
+                                <a href="{% url 'ajira:login' %}" style="color: #000099;">
+                                   Sign in
+                               </a>
+                                now to access thousands of opportunities that are right for you.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="row post-row">
+
+                        {% for post in posts_list %}
+
+                            <div class="col-md-3 post-box">
+
+                                <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                                <div class="row post-img">
+                                    <a href="{% url 'ajira:detail' post.id%} ">
+                                        <img src="{{ post.image.url }}" width="100" height="100"/>
+                                    </a>
+                                </div>
+
+                                <div class="row post-link">
+
+                                    <div class="title">
                                         <a href="{% url 'ajira:detail' post.id%} ">
-                                            <img src="{{ post.image.url }}" width="100" height="100"/>
+                                            <strong>{{ post.title }}</strong>
+                                        </a>
+                                    </div>
+                                    <div class="company">
+                                        <a href="{% url 'ajira:detail' post.id%} ">
+                                            {{ post.company }}
                                         </a>
                                     </div>
 
-                                    <div class="row post-link">
-                                        <div class="title">
-                                            <a href="{% url 'ajira:detail' post.id%} ">
-                                                <strong>{{ post.title }}</strong>
-                                            </a>
-                                        </div>
-                                        <div class="company">
-                                            <a href="{% url 'ajira:detail' post.id%} ">
-                                                {{ post.company }}
-                                            </a>
-                                        </div>
-                                    </div>
                                 </div>
+                            </div>
 
-                                {% if forloop.counter|remainder:4 == 0 %}
-                                    <!-- after 3 blocks break to a new row -->
-                        </div>
-                                <div class="row post-row">
-                                {% endif %}
+                            {% if forloop.counter|remainder:4 == 0 %}
+                                <!-- after 3 blocks break to a new row -->
+                    </div>
+                            <div class="row post-row">
+                            {% endif %}
 
-                        {% endfor %}
-                                    <!-- to avoid multiple div closing tags -->
-                        {% if forloop.counter|remainder:4 != 0 %}
-                                </div>
-                        {% endif %}
-
-                    {% else %}
-                        <p>No posts are available.</p>
+                    {% endfor %}
+                                <!-- to avoid multiple div closing tags -->
+                    {% if forloop.counter|remainder:4 != 0 %}
+                            </div>
                     {% endif %}
+
+                {% else %}
+                    <p>No posts are available.</p>
                 {% endif %}
             </div>
         </div>
