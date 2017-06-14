@@ -7,9 +7,8 @@
         <!-- xs (for phones), sm (tablets), md (desktops/laptops), lg (large desktops)-->
     <div class="container-fluid">
         <div class="row main-row">
-            <div class="top-bar container section">
-
-                {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
+                <div class="top-bar container section">
 
                     <div class="col-md-2">
                         <div class="info-box info-box1">
@@ -34,8 +33,18 @@
                             </span>
                         </div>
                     </div>
+            {% else %}
+                <div class="top-ad container-fluid section" style="background-color: #101010;">
+                    <div class=" row top-ad-header" style="color: white;">
+                         <div class="xl-title">
+                            <strong>Simplify your job search here.</strong>
+                        </div>
+                        <p>
+                            Discover your next opportunity and the people who can help you get there.
+                        </p>
+                    </div>
 
-                {% endif %}
+            {% endif %}
 
             </div>
 
@@ -77,7 +86,7 @@
                     </div>
 
                     <div class="row post-row">
-
+                        
                         {% for post in posts_list %}
 
                             <div class="col-md-3 post-box">
