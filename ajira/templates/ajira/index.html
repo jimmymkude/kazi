@@ -42,11 +42,23 @@
                         <p>
                             Discover your next opportunity and the people who can help you get there.
                         </p>
-                    </div>
 
+                    </div>
+                    <form class="top-search-form" role="search" method="get" action="#">
+                        <div class="form-group inline-block inline-block-3">
+                            <input type="text" class="form-control search-inp job-search-inp" name="query" value="" placeholder="Job title, keywords, or company name">
+                        </div>
+                        <div class="form-group inline-block inline-block-3">
+                            <input type="text" class="form-control search-inp location-search-inp" name="query" value="" placeholder="Location">
+                        </div>
+                        <div class="inline-block inline-block-btn">
+                            <button type="submit" class="btn btn-default search-btn">Search</button>
+                        </div>
+
+                    </form>
             {% endif %}
 
-            </div>
+                </div>
 
             <div class="col-md-2"></div>
 
@@ -86,7 +98,7 @@
                     </div>
 
                     <div class="row post-row">
-                        
+
                         {% for post in posts_list %}
 
                             <div class="col-md-3 post-box">

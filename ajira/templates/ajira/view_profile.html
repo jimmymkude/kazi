@@ -3,21 +3,261 @@
     {% block title %}{{ user.first_name }} {{ user.last_name }} Profile{% endblock %}
 
 {% block body %}
-    <div class="section">
-        <h1>{{ user.first_name }} {{ user.last_name }} profile</h1>
-        <a href="{% url 'ajira:edit_profile' user.id %}">
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Edit Profile
-        </a>
-        <br>
-        <br>
-        <img src="{% static 'ajira/images/background.gif' %}" class="img-circle" width="200" height="200"/>
-        <br>
-        <div>
-            <h3>Details:</h3>
-            <p>Job: {{ user.job_title }}</p>
-            <p>Company: {{ user.company_name }}</p>
-            <p>Resume: {{ user.resume }}</p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+
+                <div class="col-md-8 profile-details-column">
+
+                    <div class="section profile-section">
+
+                        <div class="section background-section">
+                            <img class="background-img" src="{% static 'ajira/images/kunduchi.jpg' %}">
+
+                        </div>
+
+                        <div class="section details-section white-section">
+
+                            <div class="right-floating-items inline-block right-floater">
+                                <a href="{% url 'ajira:edit_profile' user.id %}" class="right-floater">
+                                    <span class="glyphicon glyphicon-edit icon" aria-hidden="true"></span>
+                                </a>
+                            </div>
+
+                            <div class="profile-pic inline-block">
+                                <img src="{% static 'ajira/images/background.gif' %}" class="img-circle profile-img" width="200" height="200"/>
+                            </div>
+
+
+
+
+                            <div class="section-header profile-details">
+                                <div class="xl-title black-text">
+                                        {{ user.first_name }} {{ user.last_name }}
+                                </div>
+
+                                <div>
+                                    <div class="black-text l-text">{{ user.job_title }}</div>
+                                    <div class="company bg-text">{{ user.company_name }}</div>
+                                    <div class="location bg-text">Bukoba, Tanzania</div>
+                                    <div class="resume bg-text">
+                                        <a href="{% url 'ajira:view_resume' %}" style="
+                                            text-decoration: underline;
+                                            color: purple;
+                                        ">
+                                            View Resume
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 ad-box">
+
+                    <div class="col-md-10">
+
+                        <div class="section box-ad-section">
+                            <p class="right-floater">Ad&nbsp;</p>
+                            <div class="post-box" style="width: 100%;">
+                                <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                                <div class="row post-img">
+                                    <a href="#">
+                                        <img src="{% static 'ajira/images/nice-js.gif' %}" width="100" height="100"/>
+                                    </a>
+                                </div>
+                                <div class="post-ad-text">
+                                    Join millions of smart people innovating to make this world a better place.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+
+                <div class="col-md-8">
+                    <div class="section rec-ad-section white-section">
+
+                        <div class="pad-2-em inline-block inline-block-2 right-border">
+                            <div class="inline-block">
+                                <a href="#" class="number-link">
+                                    49&nbsp;
+                                </a>
+                            </div>
+                            <div class="inline-block ">people viewed your profile</div>
+                        </div>
+                        <div class="pad-2-em inline-block inline-block-2">
+                            <div class="inline-block">
+                                <a href="#" class="number-link">
+                                    92&nbsp;
+                                </a>
+                            </div>
+                            <div class="inline-block ">people viewed your posts</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="col-md-8">
+                    <!-- Experience -->
+                    <div class="section white-section">
+                        <div class="section-header">
+                            Experience
+                        </div>
+                        <br>
+
+                        <div class="row job-desc-row">
+                            <div class="col-md-3 post-img">
+                                <a href="#">
+                                    <img src="{% static 'ajira/images/nice-js.gif' %}" width="80" height="80"/>
+                                </a>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="bg-title black-text">
+                                    iOS App Developer and System Administrator
+                                </div>
+                                <div class="bg-text">
+                                    Michigan State University
+                                </div>
+                                <div class="n-text">
+                                    Jan 2017 - May 2017 - 5 months
+                                </div>
+                                <div class="n-text">
+                                    East Lansing, MI
+                                </div>
+                                <br>
+                                <div class="n-text">
+                                    Mapped Capital Area Transportation Authority routes and buses in real-time.
+Implemented scheduling functionality for users of the iOS App.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- the fancy line that looks like a border -->
+                        <div class="job-desc-row-dash"></div>
+
+                        <div class="row job-desc-row">
+                            <div class="col-md-3 post-img">
+                                <a href="#">
+                                    <img src="{% static 'ajira/images/nice-js.gif' %}" width="80" height="80"/>
+                                </a>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="bg-title black-text">
+                                    iOS App Developer and System Administrator
+                                </div>
+                                <div class="bg-text">
+                                    Michigan State University
+                                </div>
+                                <div class="n-text">
+                                    Jan 2017 - May 2017 - 5 months
+                                </div>
+                                <div class="n-text">
+                                    East Lansing, MI
+                                </div>
+                                <br>
+                                <div class="n-text">
+                                    Mapped Capital Area Transportation Authority routes and buses in real-time.
+Implemented scheduling functionality for users of the iOS App.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Education -->
+                    <div class="section white-section">
+                        <div class="section-header">
+                            Education
+                        </div>
+                        <br>
+
+                        <div class="row job-desc-row">
+                            <div class="col-md-3 post-img">
+                                <a href="#">
+                                    <img src="{% static 'ajira/images/nice-js.gif' %}" width="80" height="80"/>
+                                </a>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="bg-title black-text">
+                                    iOS App Developer and System Administrator
+                                </div>
+                                <div class="bg-text">
+                                    Michigan State University
+                                </div>
+                                <div class="n-text">
+                                    Jan 2017 - May 2017 - 5 months
+                                </div>
+                                <div class="n-text">
+                                    East Lansing, MI
+                                </div>
+                                <br>
+                                <div class="n-text">
+                                    Mapped Capital Area Transportation Authority routes and buses in real-time.
+Implemented scheduling functionality for users of the iOS App.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- the fancy line that looks like a border -->
+                        <div class="job-desc-row-dash"></div>
+
+                        <div class="row job-desc-row">
+                            <div class="col-md-3 post-img">
+                                <a href="#">
+                                    <img src="{% static 'ajira/images/nice-js.gif' %}" width="80" height="80"/>
+                                </a>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="bg-title black-text">
+                                    iOS App Developer and System Administrator
+                                </div>
+                                <div class="bg-text">
+                                    Michigan State University
+                                </div>
+                                <div class="n-text">
+                                    Jan 2017 - May 2017 - 5 months
+                                </div>
+                                <div class="n-text">
+                                    East Lansing, MI
+                                </div>
+                                <br>
+                                <div class="n-text">
+                                    Mapped Capital Area Transportation Authority routes and buses in real-time.
+Implemented scheduling functionality for users of the iOS App.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container-fluid footer">
+      <h5>&copy; 2017 Jimmy Mkude</h5>
+      <a href="#">About</a>
     </div>
 
 {% endblock %}

@@ -219,16 +219,23 @@ class UserProfileEditView(generic.View):
 
     # process form data
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
-        form = self.form_class(request.POST, request.FILES, instance=post)
+        user = AjiraUser.objects.get(pk=pk)
+        form = self.form_class(request.POST, request.FILES, instance=user)
 
         if form.is_valid():
             #post.user = request.user
-            post.save()
+            user.save()
 
-            return HttpResponseRedirect(reverse('ajira:edit_posts'))
+            return HttpResponseRedirect(reverse('ajira:view_profile', args=pk))
 
         return render(request, self.template_name, {'form': form})
+
+
+def view_resume(request):
+    with open(request.user.resume, 'r') as pdf:
+        response = HttpResponse(pdf.read(), mimetype='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+        return response
 
 
 class AboutPageView(generic.TemplateView):
