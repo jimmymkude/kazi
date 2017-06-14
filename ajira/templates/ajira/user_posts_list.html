@@ -1,36 +1,99 @@
 <!-- User view to see all post he has posted -->
 {% extends 'ajira/base.html' %}
+{% load static %}
 {% block title %}My Posts | Ajira {% endblock %}
 {% block body %}
-    {% if user.is_authenticated %}
-        <br>
-        <br>
-        <p>Hello, {{ user.username }}</p>
-        {% if user_posts %}
-            <h3>My Job Postings</h3>
-            <ul>
-            {% for post in user_posts %}
-                <li>
-                    <img src="{{ post.image.url }}" width="50" height="50"/>
-                    <a href="{% url 'ajira:edit_post' post.id%} ">{{ post }}</a>
+    <div class="container-fluid">
+        {% if user.is_authenticated %}
 
-                    <!-- Delete -->
-                    <form action="{% url 'ajira:delete_post' post.id %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-default btn-sm">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                    </form>
-                </li>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="col-md-3">
+                        <!-- Minimized profile view -->
+                        <div class="section profile-section top-margin">
 
-            {% endfor %}
-            </ul>
+                            <div class="section background-section" style="
+                                height: 100px;
+                            ">
+                                <img class="background-img" src="{% static 'ajira/images/kunduchi.jpg' %}">
+                            </div>
+
+                            <div class="section details-section white-section">
+
+                                <div class="profile-pic" style="
+                                    text-align: center;
+                                    top: -60px;
+                                    ">
+                                    <img src="{% static 'ajira/images/background.gif' %}" class="img-circle profile-img" width="100" height="100"/>
+                                </div>
+
+                                <div class="section-header profile-details">
+                                    <div class="bg-title black-text">
+                                            {{ user.first_name }} {{ user.last_name }}
+                                    </div>
+
+                                    <div>
+                                        <div class="black-text bg-text">{{ user.job_title }}</div>
+                                        <div class="company n-text">{{ user.company_name }}</div>
+                                        <div class="location n-text">Bukoba, Tanzania</div>
+                                        <div class="resume n-text">
+                                            <a href="{% url 'ajira:view_profile' user.id %}" style="
+                                                text-decoration: underline;
+                                                color: purple;
+                                            ">
+                                                View Full Profile
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Posts list display -->
+                    <div class="col-md-6">
+
+                        <div class="section ad-section white-section top-margin">
+                            <div class="black-text bg-text">{{ user.first_name }}'s Posts</div>
+                        </div>
+
+                        <div class="section white-section">
+
+                            {% if user_posts %}
+
+                                <ul>
+                                {% for post in user_posts %}
+                                    <li>
+                                        <img src="{{ post.image.url }}" width="50" height="50"/>
+                                        <a href="{% url 'ajira:edit_post' post.id%} ">{{ post }}</a>
+
+                                        <!-- Delete -->
+                                        <form action="{% url 'ajira:delete_post' post.id %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-default btn-sm">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </form>
+                                    </li>
+
+                                {% endfor %}
+                                </ul>
+
+                            {% else %}
+                                <p>No posts are available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% else %}
-            <p>No posts are available.</p>
+            <p><a href="{% url 'ajira:register' %}">Sign Up</a></p>
+            <p><a href="{% url 'ajira:login' %}">Sign In</a></p>
         {% endif %}
-    {% else %}
-        <p><a href="{% url 'ajira:register' %}">Sign Up</a></p>
-        <p><a href="{% url 'ajira:login' %}">Sign In</a></p>
-    {% endif %}
+    </div>
 
 {% endblock %}
