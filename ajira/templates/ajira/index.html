@@ -141,8 +141,8 @@
                                 </div>
                             </div>
 
-                            {% if forloop.counter|remainder:4 == 0 %}
-                                <!-- after 3 blocks break to a new row -->
+                            {% if forloop.counter|remainder:4 == 0 and posts_list|length > forloop.counter %}
+                                <!-- after 4 blocks break to a new row -->
                     </div>
                             <div class="row post-row">
                             {% endif %}
@@ -160,8 +160,14 @@
         </div>
     </div>
 
-<div class="container-fluid footer">
-  <h5>&copy; 2017 Jimmy Mkude</h5>
-  <a href="#">About</a>
-</div>
+    <!--
+
+    <div class="container-fluid footer gray-section">
+        <h5>&copy; 2017 Jimmy Mkude</h5>
+        <a href="#">About</a>
+    </div>
+
+    -->
+
+
 {% endblock%}

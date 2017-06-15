@@ -74,7 +74,7 @@ a:active
 }
 
 .section{
-    background-color: #f2f2f2;
+    background-color: white;
     box-shadow: 1px 1px 5px #888888;
     margin-bottom: 1em;
     //border: 1px solid #6e6e6e;
@@ -91,7 +91,7 @@ a:active
 div.middle-section {
     background-color: rgba(0, 0, 0, 0.5);
     background-color: rgba(255, 255, 255, 1);
-    background-color: #f2f2f2;
+    //background-color: #f2f2f2;
     text-align: center;
     padding-top: 3em;
 }
@@ -108,7 +108,8 @@ div.middle-section {
     //box-shadow: 1px 1px 5px #888888;
     height: 250px;
     text-align: center;
-    width: 100%;
+    width: 105%;
+
 
 }
 
@@ -120,12 +121,35 @@ div.middle-section {
     width: 200%;
 }
 
+.submit-btn {
+    background-color: purple;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    color: white;
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+}
+
+.submit-btn:hover{
+    background-color: rgba(128,0,128,0.8); //purple;
+    color: white;
+    //border: 1px solid white;
+    //color: #6e6e6e;
+    //box-shadow: none;
+    //box-shadow: 1px 1px 5px #888888;
+}
+
 .search-btn{
     background-color: transparent;
     border: 1px solid white;
     border-radius: 1px;
     color: white;
 }
+
+
 
 .search-inp {
     width: 100%;
@@ -233,6 +257,11 @@ input.form-control {
 
 }
 
+.l-title {
+    font-family: 'Overpass', cursive;
+    font-size: 200%;
+}
+
 .xl-title {
     font-family: 'Overpass', cursive;
     font-size: 250%;
@@ -273,7 +302,9 @@ input.form-control {
 
 .icon:hover {
     box-shadow: 1px 1px 20px #888888;
-    border-radius: 8px;
+    border-radius: 15px;
+    color: rgba(128,0,128,0.8); //purple;
+    background-color: rgba(128,0,128,0.2); //purple;
 }
 
 .background-img {
@@ -376,10 +407,17 @@ a {
     background-color: rgba(255, 255, 255, 1);
     text-align: center;
     padding: 1em;
+    position: relative;
+    width: 100%;
+    bottom:0;
 }
 
 .white-section {
     background-color: white;
+}
+
+.gray-section {
+    background-color: #f2f2f2;
 }
 
 .number-link{
@@ -406,3 +444,95 @@ a {
 .top-margin {
     margin-top: 1em;
 }
+
+.post-manage {
+    height: 250px;
+}
+
+.no-padding {
+    padding: 0em;
+}
+
+.form-group {
+    text-align: center;
+    margin-bottom: 3em;
+}
+
+.form-horizontal {
+    padding: 4em;
+}
+
+.form-horizontal input {
+    width: 500px;
+    text-align: center;
+}
+
+.form-horizontal input, textarea{
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #d3d3d3;
+}
+
+.errorlist {
+    padding: 0em;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0px;
+}
+
+.flat-top {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.no-top-border {
+    border-top: none;
+}
+
+.no-bottom-border {
+    border-bottom: none;
+}
+
+.no-shadow {
+    box-shadow: none;
+}
+
+.tab-section {
+    margin: 0px;
+
+    border-radius: 0px;
+    border-right: 1px solid #d3d3d3;
+
+}
+
+.tab-section-inactive {
+    background-color: rgba(128,0,128,1); //purple;
+    color: #6e6e6e;
+    border: none;
+}
+/* cool tabbing theme between log in and sign up tabs
+.tab-section-inactive:hover {
+    background-color: white;
+}
+
+div:hover > .inactive-tab-text {
+    color: #6e6e6e;
+    font-weight: normal;
+}
+*/
+
+.tab-section-inactive:hover {
+    background-color: rgba(128,0,128,0.8); //purple;
+}
+
+div:hover > .inactive-tab-text {
+    font-weight: normal;
+}
+
+
+.inactive-tab-text{
+    color: white;
+}
+
+

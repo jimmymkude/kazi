@@ -1,12 +1,32 @@
 {% extends 'ajira/base.html' %}
 {% block title %}Login | Ajira{% endblock %}
 {% block body %}
+
 <div class="container-fluid">
+    <div class="row top-margin" style="margin-top: 7em;">
+        <div class="col-sm-12 col-md-4 col-md-offset-4 section white-section no-padding no-bottom-margin">
+            <div class="row">
+                <div class="section-header section col-md-6 tab-section">
+                    <div class="l-title gray-text">
+                        <span>Login</span>
+                    </div>
+                </div>
+                <a href="{% url 'ajira:register'%}">
+                    <div class="section-header section col-md-6 tab-section tab-section-inactive">
+                        <div class="l-title black-text inactive-tab-text">
+                                <span>Sign Up</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
     <div class="row">
-        <div class="col-sm-12 col-md-7">
-            <div class="panel panel-default">
+        <div class="col-sm-12 col-md-4 col-md-offset-4 section white-section no-padding flat-top no-top-border ">
+            <div class="">
                 <div class="panel-body">
-                    <h2>Login</h2>
                     {% if error_message %}
                         <p><strong>{{ error_message }}</strong></p>
                     {% endif %}
@@ -14,8 +34,8 @@
                         {% csrf_token %}
                         {% include 'ajira/form-template.html' %}
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                            <div class="">
+                                <button type="submit" class="btn submit-btn">Log In</button>
                             </div>
                         </div>
                     </form>

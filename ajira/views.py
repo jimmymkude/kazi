@@ -138,6 +138,10 @@ class UserFormView(generic.View):
     # display blank form for user to sign up on
     def get(self, request):
         form = self.form_class(data=None)
+        form.fields['password'].widget.attrs.update({
+            'placeholder': 'Password'
+        })
+
         return render(request, self.template_name, {'form': form})
 
     # process form data
@@ -175,6 +179,10 @@ class UserLoginFormView(generic.View):
     # display blank form for user to sign in
     def get(self, request):
         form = self.form_class(data=None)
+        form.fields['password'].widget.attrs.update({
+            'placeholder': 'Password'
+        })
+
         return render(request, self.template_name, {'form': form})
 
     # process form data
@@ -232,9 +240,10 @@ class UserProfileEditView(generic.View):
 
 
 def view_resume(request):
-    with open(request.user.resume, 'r') as pdf:
-        response = HttpResponse(pdf.read(), mimetype='application/pdf')
-        response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+    resume_path = request.user.resume
+    with open(resume_path, 'r') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'filename=my_resume.pdf'
         return response
 
 

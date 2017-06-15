@@ -22,16 +22,13 @@
 
                             <div class="right-floating-items inline-block right-floater">
                                 <a href="{% url 'ajira:edit_profile' user.id %}" class="right-floater">
-                                    <span class="glyphicon glyphicon-edit icon" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-pencil icon" aria-hidden="true"></span>
                                 </a>
                             </div>
 
                             <div class="profile-pic inline-block">
                                 <img src="{% static 'ajira/images/background.gif' %}" class="img-circle profile-img" width="200" height="200"/>
                             </div>
-
-
-
 
                             <div class="section-header profile-details">
                                 <div class="xl-title black-text">
@@ -258,9 +255,5 @@ Implemented scheduling functionality for users of the iOS App.
 
     </div>
 
-    <div class="container-fluid footer">
-      <h5>&copy; 2017 Jimmy Mkude</h5>
-      <a href="#">About</a>
-    </div>
 
 {% endblock %}

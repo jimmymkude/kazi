@@ -14,7 +14,7 @@
                         <div class="section profile-section top-margin">
 
                             <div class="section background-section" style="
-                                height: 100px;
+                                height: 120px;
                             ">
                                 <img class="background-img" src="{% static 'ajira/images/kunduchi.jpg' %}">
                             </div>
@@ -61,32 +61,68 @@
                             <div class="black-text bg-text">{{ user.first_name }}'s Posts</div>
                         </div>
 
-                        <div class="section white-section">
-
                             {% if user_posts %}
 
-                                <ul>
                                 {% for post in user_posts %}
-                                    <li>
-                                        <img src="{{ post.image.url }}" width="50" height="50"/>
-                                        <a href="{% url 'ajira:edit_post' post.id%} ">{{ post }}</a>
+                                    <div class="section white-section">
+                                        <div class="row post-manage">
+                                            <!-- Delete -->
+                                            <form action="{% url 'ajira:delete_post' post.id %}" class="danger" method="post" style="display: inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger btn-sm right-floater">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            </form>
 
-                                        <!-- Delete -->
-                                        <form action="{% url 'ajira:delete_post' post.id %}" method="post" style="display: inline;">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </form>
-                                    </li>
+                                            <!-- Edit -->
+                                            <form action="{% url 'ajira:edit_post' post.id %}" method="post" style="display: inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-default btn-sm right-floater">
+                                                    <span class="glyphicon glyphicon-pencil"></span>
+                                                </button>
+                                            </form>
+
+                                            <div class="post-img">
+                                                <a href="{% url 'ajira:detail' post.id%} ">
+                                                    <img src="{{ post.image.url }}" class="img-rounded" width="100" height="100"/>
+                                                </a>
+                                            </div>
+
+                                            <br>
+
+                                            <div class="title">
+                                                <a href="{% url 'ajira:detail' post.id%} " style="color: black;">
+                                                    <div class="bg-title black-text">{{ post.title }}</div>
+                                                </a>
+                                            </div>
+
+                                            <div class="company">
+                                                <a href="{% url 'ajira:detail' post.id%} " style="color: black;">
+                                                    {{ post.company }}
+                                                </a>
+                                            </div>
+                                            <div class="location">
+                                                <span>
+                                                    Dar-es-Salaam, TZ
+                                                </span>
+                                            </div>
+
+                                            <div class="">
+                                                <span>
+                                                    5 days ago
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
 
                                 {% endfor %}
-                                </ul>
 
                             {% else %}
                                 <p>No posts are available.</p>
                             {% endif %}
-                        </div>
+
                     </div>
                 </div>
             </div>

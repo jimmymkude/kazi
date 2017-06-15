@@ -2,16 +2,24 @@
 {% block title %}Edit | Profile{% endblock %}
 {% block body %}
 <div class="container-fluid">
+    <div class="row top-margin">
+        <div class="col-sm-12 col-md-4 col-md-offset-4 section white-section">
+            <div class="section-header">
+                <div class="xl-title black-text">Edit Profile</div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
-        <div class="col-sm-12 col-md-7">
-            <div class="panel panel-default">
+        <div class="col-sm-12 col-md-4 col-md-offset-4 section white-section no-padding">
+            <div class="">
                 <div class="panel-body">
                     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% include 'ajira/form-template.html' %}
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                            <div class="">
+                                <button type="submit" class="btn submit-btn">Update Profile</button>
                             </div>
                         </div>
                     </form>
