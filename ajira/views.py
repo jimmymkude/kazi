@@ -8,8 +8,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.forms.models import model_to_dict
 
-from .forms import UserForm, UserLoginForm, PostCreateForm, PostEditForm, UserEditProfileForm
-from .models import Post, AjiraUser
+from .forms import UserForm, UserLoginForm, PostCreateForm, PostEditForm, UserEditProfileForm, UserAddCareerInterestsForm, JobTitleForm, LocationForm
+from .models import Post, AjiraUser, CareerInterests, JobTitle, Location
 from .serializers import PostSerializer
 
 
@@ -237,6 +237,76 @@ class UserProfileEditView(generic.View):
             return HttpResponseRedirect(reverse('ajira:view_profile', args=pk))
 
         return render(request, self.template_name, {'form': form})
+
+
+class AddCareerInterests(generic.View):
+    form_class = UserAddCareerInterestsForm
+    template_name = "ajira/career_interests.html"
+    job_form_class = JobTitleForm
+    location_form_class = LocationForm
+
+    # display blank form for user to sign in
+    def get(self, request, pk):
+        form = self.form_class(data=None)
+        job_form = self.job_form_class(data=None)
+        location_form = self.location_form_class(data=None)
+        context = {
+            'form': form,
+            'job_form': job_form,
+            'location_form': location_form,
+            'loop_times': range(0, 3)
+        }
+        return render(request, self.template_name, context)
+
+    # process form data
+    def post(self, request, pk):
+        user = AjiraUser.objects.get(pk=pk)
+        career_interests = user.career_interests
+        if not career_interests:
+            career_interests = CareerInterests()
+            career_interests.save()
+
+        print(request.POST)
+        for title in request.POST.getlist('title'):
+            print("1")
+            job_title = JobTitle()
+            job_title.title = title
+            job_title.save()
+            career_interests.job_titles.add(job_title)
+            #job_titles + (job_title,)
+        #career_interests.job_titles = job_titles
+
+        name_list = request.POST.getlist('name')
+        city_list = request.POST.getlist('city')
+        region_list = request.POST.getlist('region')
+        country_list = request.POST.getlist('country')
+
+        for i in range(len(name_list)):
+            job_loc = Location()
+            job_loc.name = name_list[i]
+            job_loc.city = city_list[i]
+            job_loc.region = region_list[i]
+            job_loc.country = country_list[i]
+
+            job_loc.save()
+            career_interests.job_locations.add(job_loc)
+            #job_locations + (job_loc,)
+
+        career_interests.save()
+        form = self.form_class(instance=career_interests)
+        #print(request.POST)
+        #job_form = self.job_form_class(request.POST, instance=)
+        print(Location.objects.all())
+
+        user.career_interests = career_interests
+
+        #### REMEMBER TO VALIDATE BEFORE PRODUCTION ####
+        if 1:
+            user.save()
+
+            return HttpResponseRedirect(reverse('ajira:view_profile', args=pk))
+
+        return self.get(request, user.id)
 
 
 def view_resume(request):

@@ -5,6 +5,43 @@ from django.contrib.auth.models import User, UserManager
 
 # Create your models here.
 
+class JobTitle(models.Model):
+    title = models.CharField(name="title", max_length=60)
+
+    def __str__(self):
+        return "Job Title: {}".format(self.title)
+
+
+class Location(models.Model):
+    name = models.CharField(name="name", max_length=100)
+    city = models.CharField(name="city", max_length=100)
+    region = models.CharField(name="region", max_length=100)
+    country = models.CharField(name="country", max_length=100)
+
+    def __str__(self):
+        return "Name: {}, City: {}, Region: {}, Country: {}".format(self.name, self.city, self.region, self.country)
+
+
+class CareerInterests(models.Model):
+    FULLTIME = 'FT'
+    PARTTIME = 'PT'
+    INTERNSHIP = 'IN'
+    TENDA = 'T'
+
+    JOB_TYPE_CHOICES = (
+        (FULLTIME, 'Full-time'),
+        (PARTTIME, 'Part-time'),
+        (INTERNSHIP, 'Internship'),
+        (TENDA, 'Tenda/Contract'),
+    )
+    # job title user is considering
+    job_titles = models.ManyToManyField(JobTitle)
+    job_locations = models.ManyToManyField(Location)
+    job_types = models.CharField(max_length=10, choices=JOB_TYPE_CHOICES, default=FULLTIME)
+
+    def __str__(self):
+        return ("( Job Titles: {} Job Locations: {} Job Types: {})".format(self.job_titles, self.job_locations, self.job_types))
+
 
 class AjiraUser(User):
     #first_name = models.CharField(max_length=50)
@@ -15,7 +52,7 @@ class AjiraUser(User):
     job_title = models.CharField(max_length=50, default="N/A")
     company_name = models.CharField(max_length=30, default="N/A")
     resume = models.FileField(name="resume", max_length=50, default="No resume uploaded", upload_to='media/resumes/%Y/%m/%d')
-
+    career_interests = models.ForeignKey(CareerInterests, on_delete=models.CASCADE, null=True)
     # Use UserManager to get the create_user method, etc.
     objects = UserManager()
 
@@ -39,6 +76,26 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title + " from " + self.company
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

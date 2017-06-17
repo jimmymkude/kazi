@@ -37,6 +37,9 @@ urlpatterns = [
     # ajira/view/resume
     url(r'^view/resume/$', views.view_resume, name='view_resume'),
 
+    # ajira/career-interests
+    url(r'^career-interests/(?P<pk>[0-9]+)/$', views.AddCareerInterests.as_view(), name='career_interests'),
+
     # ajira/login
     url(r'^login/$', views.UserLoginFormView.as_view(), name='login'),
 

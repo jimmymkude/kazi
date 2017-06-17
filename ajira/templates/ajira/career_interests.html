@@ -1,0 +1,89 @@
+{% extends 'ajira/base.html' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="col-md-2"></div>
+        <div class="col-md-5">
+            <div class="row section top-margin no-bottom-margin">
+                <div class="l-title">Career interests</div>
+            </div>
+            <div class="row section no-bottom-margin questions">
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+
+                    {% for field in form %}
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <span class="black-text">{{ field.errors }}</span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label class="control-label black-text inline-block">{{ field.label_tag }}</label>
+                                <br>
+                                <!--<div class="inline-block">{{ field }}</div>-->
+
+                                {% if forloop.counter == 1 %}
+                                    <div class="col-md-12">
+                                        <span class="black-text">{{ field.errors }}</span>
+                                    </div>
+                                    <div class="inline-block">{{ field }}</div>
+                                {% endif %}
+
+                                {% if forloop.counter == 2 %}
+                                    {% for i in loop_times %}
+                                        <br>
+                                        <br>
+                                        <div class="col-md-12">
+                                            <span class="black-text">Job Title {{ forloop.counter }}</span>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        {% for job_field in job_form %}
+                                            <div class="col-md-12">
+                                                <span class="black-text">{{ field.errors }}</span>
+                                            </div>
+                                            <div class="inline-block">{{ job_field }}</div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if forloop.counter == 3 %}
+                                    {% for i in loop_times %}
+                                        <br>
+                                        <br>
+                                        <div class="col-md-12">
+                                            <span class="black-text">Location {{ forloop.counter }}</span>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        {% for location_field in location_form %}
+                                            <div class="col-md-12">
+                                                <span class="black-text">{{ field.errors }}</span>
+                                            </div>
+                                            <div class="inline-block">{{ location_field }}</div>
+                                        {% endfor %}
+
+                                    {% endfor %}
+
+                                {% endif %}
+
+
+
+
+
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                    <div class="form-group">
+                        <div class="">
+                            <button type="submit" class="btn submit-btn">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
