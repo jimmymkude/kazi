@@ -1,7 +1,7 @@
 
 body {
-    //background-color: #fafafa;
-    background: #fafafa url("images/water-glass.gif") no-repeat center center fixed;
+    background-color: #fafafa;
+    //background: #fafafa url("images/water-glass.gif") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
