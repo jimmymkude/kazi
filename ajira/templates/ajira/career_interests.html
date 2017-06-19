@@ -1,5 +1,6 @@
 {% extends 'ajira/base.html' %}
 
+
 {% block body %}
     <div class="container-fluid">
         <div class="col-md-2"></div>
@@ -10,7 +11,6 @@
             <div class="row section no-bottom-margin questions">
                 <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-
 
                     {% for field in form %}
                         <div class="form-group">
@@ -31,7 +31,22 @@
                                 {% endif %}
 
                                 {% if forloop.counter == 2 %}
-                                    {% for i in loop_times %}
+                                    {% for form_job in job_forms %}
+                                        <br>
+                                        <br>
+                                        <div class="col-md-12">
+                                            <span class="black-text">Job Title {{ forloop.counter }}</span>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        {% for job_field in form_job %}
+                                            <div class="col-md-12">
+                                                <span class="black-text">{{ job_field.errors }}</span>
+                                            </div>
+                                            <div class="inline-block">{{ job_field }}</div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    {% for i in title_loop_times %}
                                         <br>
                                         <br>
                                         <div class="col-md-12">
@@ -41,7 +56,7 @@
                                         <br>
                                         {% for job_field in job_form %}
                                             <div class="col-md-12">
-                                                <span class="black-text">{{ field.errors }}</span>
+                                                <span class="black-text">{{ job_field.errors }}</span>
                                             </div>
                                             <div class="inline-block">{{ job_field }}</div>
                                         {% endfor %}
@@ -49,7 +64,23 @@
                                 {% endif %}
 
                                 {% if forloop.counter == 3 %}
-                                    {% for i in loop_times %}
+                                    {% for loc_form in location_forms %}
+                                        <br>
+                                        <br>
+                                        <div class="col-md-12">
+                                            <span class="black-text">Location {{ forloop.counter }}</span>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        {% for location_field in loc_form %}
+                                            <div class="col-md-12">
+                                                <span class="black-text">{{ location_field.errors }}</span>
+                                            </div>
+                                            <div class="inline-block">{{ location_field }}</div>
+                                        {% endfor %}
+                                    {% endfor %}
+
+                                    {% for i in location_loop_times %}
                                         <br>
                                         <br>
                                         <div class="col-md-12">
@@ -59,7 +90,7 @@
                                         <br>
                                         {% for location_field in location_form %}
                                             <div class="col-md-12">
-                                                <span class="black-text">{{ field.errors }}</span>
+                                                <span class="black-text">{{ location_field.errors }}</span>
                                             </div>
                                             <div class="inline-block">{{ location_field }}</div>
                                         {% endfor %}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import AjiraUser, Post
+from .models import AjiraUser, Post, JobTitle, Location, CareerInterests
 # Register your models here.
 
 
@@ -17,3 +17,4 @@ class UserAdmin(admin.ModelAdmin):
 
 #admin.site.register(User)
 admin.site.register(AjiraUser, UserAdmin)
+admin.site.register(JobTitle)

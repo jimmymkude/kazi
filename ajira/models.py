@@ -7,9 +7,13 @@ from django.contrib.auth.models import User, UserManager
 
 class JobTitle(models.Model):
     title = models.CharField(name="title", max_length=60)
+    title_lower = models.CharField(name="title_lower", max_length=60, default="n/a")
 
     def __str__(self):
         return "Job Title: {}".format(self.title)
+
+    def is_valid(self):
+        return self.title != ""
 
 
 class Location(models.Model):
@@ -20,6 +24,9 @@ class Location(models.Model):
 
     def __str__(self):
         return "Name: {}, City: {}, Region: {}, Country: {}".format(self.name, self.city, self.region, self.country)
+
+    def is_valid(self):
+        return self.region != "" and self.country != ""
 
 
 class CareerInterests(models.Model):
@@ -64,6 +71,7 @@ class AjiraUser(User):
 class Post(models.Model):
     image = models.ImageField(name="image", upload_to='media/%Y/%m/%d')
     title = models.CharField(name="title", max_length=60)
+    title_lower = models.CharField(name="title_lower", max_length=60, default="n/a")
     description = models.TextField(name="description", max_length=1000)
     link = models.CharField(name="link", max_length=200)
     company = models.CharField(name="company", default="N/A", max_length=30)

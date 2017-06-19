@@ -12,6 +12,8 @@ from .forms import UserForm, UserLoginForm, PostCreateForm, PostEditForm, UserEd
 from .models import Post, AjiraUser, CareerInterests, JobTitle, Location
 from .serializers import PostSerializer
 
+import re
+
 
 # Create your views here.
 
@@ -28,7 +30,39 @@ class IndexView(generic.ListView):
     def get(self, request):
         user = request.user
         if user.is_authenticated():
-            recommended_posts = Post.objects.filter(title__contains='Computer')[:3]
+            recommended_posts = Post.objects.all() #Post.objects.filter(title__contains='Computer')
+            career_interests = None
+            if user.career_interests:
+                career_interests = CareerInterests.objects.get(pk=user.career_interests.id)
+
+            if career_interests:
+                job_titles = JobTitle.objects.filter(careerinterests=career_interests.id)
+                job_locations = Location.objects.filter(careerinterests=career_interests.id)
+
+                title_regex = '('
+                for title in job_titles:
+                    title_words = title.title.split()
+                    for word in title_words:
+                        title_regex += word.lower() + "|"
+                title_regex = title_regex[:-1]
+                title_regex += ')'
+
+                print(title_regex)
+
+                location_regex = '('
+                for loc in job_locations:
+                    location_regex += loc.region.lower() + "|"
+                location_regex = location_regex[:-1]
+                location_regex += ')'
+
+                print(location_regex)
+
+
+
+
+                recommended_posts = Post.objects.filter(title_lower__regex=title_regex)
+                #recommended_posts = Post.objects.filter(title_lower__regex=r'(software|engineering)')
+                print(recommended_posts)
             return render(request, self.template_name, {'user': user, self.context_object_name: recommended_posts})
 
         return render(request, self.template_name, {self.context_object_name: Post.objects.all()})
@@ -56,7 +90,7 @@ class UserPostListView(generic.ListView):
 
 class UserPostEditView(generic.View):
     template_name = 'ajira/post_form.html'
-    context_object_name = 'post'
+    #context_object_name = 'post'
     form_class = PostEditForm
 
     # display filled in form for user to edit post
@@ -64,7 +98,13 @@ class UserPostEditView(generic.View):
         if request.user.is_authenticated():
             post = Post.objects.get(pk=pk)
             form = self.form_class(instance=post)
-            return render(request, self.template_name, {'form': form, 'edit': True})
+            context = {
+                'form': form,
+                'edit': True,
+                'post': post,
+                'title': "Edit Post | Ajira"
+            }
+            return render(request, self.template_name, context)
 
         return HttpResponseRedirect(reverse('ajira:login'))
 
@@ -75,11 +115,12 @@ class UserPostEditView(generic.View):
 
         if form.is_valid():
             #post.user = request.user
+            post.title_lower = post.title.lower()
             post.save()
 
             return HttpResponseRedirect(reverse('ajira:edit_posts'))
 
-        return render(request, self.template_name, {'form': form})
+        return self.get(request, pk)#render(request, self.template_name, {'form': form})
 
 
 class UserPostDeleteView(generic.DeleteView):
@@ -101,7 +142,8 @@ class PostCreateView(generic.View):
     def get(self, request):
         if request.user.is_authenticated():
             form = self.form_class(data=None)
-            return render(request, self.template_name, {'form': form})
+
+            return render(request, self.template_name, {'form': form, 'edit': False})
 
         return HttpResponseRedirect(reverse('ajira:register'))
 
@@ -111,6 +153,7 @@ class PostCreateView(generic.View):
 
         if form.is_valid():
             post = form.save(commit=False)
+            post.title_lower = post.title.lower()
             post.user = request.user
             post.save()
 
@@ -247,34 +290,70 @@ class AddCareerInterests(generic.View):
 
     # display blank form for user to sign in
     def get(self, request, pk):
-        form = self.form_class(data=None)
+        user = AjiraUser.objects.get(pk=pk)
+        career_interests = CareerInterests()
+        if user.career_interests:
+            career_interests = CareerInterests.objects.get(pk=user.career_interests.id)
+        else:
+            career_interests.save()
+
+        job_titles = JobTitle.objects.filter(careerinterests=career_interests.id)
+        job_locations = Location.objects.filter(careerinterests=career_interests.id)
+
+        job_forms = []
+        for title in job_titles:
+            job_form = self.job_form_class(instance=title)
+            job_forms.append(job_form)
+
+        job_location_forms = []
+        for loc in job_locations:
+            location_form = self.location_form_class(instance=loc)
+            job_location_forms.append(location_form)
+
+        form = self.form_class(instance=career_interests)
         job_form = self.job_form_class(data=None)
         location_form = self.location_form_class(data=None)
         context = {
             'form': form,
             'job_form': job_form,
+            'job_forms': job_forms,
+            'num_job_forms': len(job_forms),
+            'location_forms': job_location_forms,
+            'num_location_forms': len(job_location_forms),
             'location_form': location_form,
-            'loop_times': range(0, 3)
+            'title_loop_times': range(0, 3-len(job_forms)),
+            'location_loop_times': range(0, (3 - len(job_location_forms)))
         }
         return render(request, self.template_name, context)
 
     # process form data
     def post(self, request, pk):
         user = AjiraUser.objects.get(pk=pk)
-        career_interests = user.career_interests
-        if not career_interests:
-            career_interests = CareerInterests()
+        career_interests = CareerInterests()
+        if user.career_interests:
+            career_interests = CareerInterests.objects.get(pk=user.career_interests.id)
+        else:
             career_interests.save()
 
-        print(request.POST)
+        job_titles = JobTitle.objects.filter(careerinterests=career_interests.id)
+        job_locations = Location.objects.filter(careerinterests=career_interests.id)
+
+        # Delete all titles in database to replace them with new ones
+        for title in job_titles:
+            title.delete()
+
+        # Delete all locations in database to replace them with new ones
+        for loc in job_locations:
+            loc.delete()
+
+
         for title in request.POST.getlist('title'):
-            print("1")
             job_title = JobTitle()
             job_title.title = title
-            job_title.save()
-            career_interests.job_titles.add(job_title)
-            #job_titles + (job_title,)
-        #career_interests.job_titles = job_titles
+            job_title.title_lower = title.lower()
+            if job_title.title != '':
+                job_title.save()
+                career_interests.job_titles.add(job_title)
 
         name_list = request.POST.getlist('name')
         city_list = request.POST.getlist('city')
@@ -288,25 +367,25 @@ class AddCareerInterests(generic.View):
             job_loc.region = region_list[i]
             job_loc.country = country_list[i]
 
-            job_loc.save()
-            career_interests.job_locations.add(job_loc)
-            #job_locations + (job_loc,)
+            if job_loc.is_valid():
+                job_loc.save()
+                career_interests.job_locations.add(job_loc)
+
 
         career_interests.save()
-        form = self.form_class(instance=career_interests)
-        #print(request.POST)
-        #job_form = self.job_form_class(request.POST, instance=)
-        print(Location.objects.all())
-
         user.career_interests = career_interests
 
         #### REMEMBER TO VALIDATE BEFORE PRODUCTION ####
-        if 1:
+        if self.is_valid(career_interests):
             user.save()
 
-            return HttpResponseRedirect(reverse('ajira:view_profile', args=pk))
+            return HttpResponseRedirect(reverse('ajira:index'))
 
         return self.get(request, user.id)
+
+    def is_valid(self, career_interests):
+        return True
+
 
 
 def view_resume(request):
