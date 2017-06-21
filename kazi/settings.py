@@ -25,7 +25,7 @@ SECRET_KEY = '97@r71s1oy=5xj7p*@!jypgwrjpwt-s2mqsck8p0*qk$gac0m$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.10', 'localhost', '127.0.0.1', '10.32.5.188', 'mkude1.mynetgear.com']
 
 
 # Application definition
