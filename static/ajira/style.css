@@ -1,0 +1,537 @@
+
+body {
+    background-color: #fafafa;
+    //background: #fafafa url("images/water-glass.gif") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #6e6e6e;;
+}
+
+a:link
+{
+    text-decoration: none;
+}
+
+a:visited
+{
+    font-style: italic;
+}
+
+a:hover
+{
+    color: #6e6e6e;
+    font-weight: bold;
+}
+
+a:active
+{
+    color: #000000;
+    text-decoration: small-caps;
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+.container-fluid{
+    padding: 0%;
+}
+
+
+
+.top-bar {
+    background: #f2f2f2;
+    padding: 2%;
+    width: 67%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    clear: both;
+
+}
+
+.top-ad {
+    padding: 2%;
+    border-radius: 0px !important;
+    //width: 102%;
+    right: 0;
+}
+
+.top-ad-header {
+    text-align: center;
+}
+
+.info-box1{
+    border-right: 1px solid #6e6e6e;
+    color: #6e6e6e;
+}
+
+
+.info-box a{
+    color: #000099;
+}
+
+.section{
+    background-color: white;
+    box-shadow: 1px 1px 5px #888888;
+    margin-bottom: 1em;
+    //border: 1px solid #6e6e6e;
+    border-radius: 5px;
+    padding: 2em;
+}
+
+.section-header{
+    text-align: left;
+    //margin: 0px 0px 20px 25px;
+    //border: 5px solid red;
+}
+
+div.middle-section {
+    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 1);
+    //background-color: #f2f2f2;
+    text-align: center;
+    padding-top: 3em;
+}
+
+.row{
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.post-row{
+    margin: 0px 0px 20px 0px;
+    //border-bottom: 1px solid #6e6e6e;
+    //box-shadow: 1px 1px 5px #888888;
+    height: 250px;
+    text-align: center;
+    width: 105%;
+
+
+}
+
+.top-search-form{
+    text-align: center;
+}
+
+.top-search-form button {
+    width: 200%;
+}
+
+.submit-btn {
+    background-color: purple;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    color: white;
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+}
+
+.submit-btn:hover{
+    background-color: rgba(128,0,128,0.8); //purple;
+    color: white;
+    //border: 1px solid white;
+    //color: #6e6e6e;
+    //box-shadow: none;
+    //box-shadow: 1px 1px 5px #888888;
+}
+
+.search-btn{
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 1px;
+    color: white;
+}
+
+
+
+.search-inp {
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 1px;
+    background: white url("images/search-icon.png") no-repeat scroll;
+    background-size: 16px 16px;
+    background-position: 7px 7px;
+    padding-left:30px;
+}
+
+.job-search-inp {
+    background: white url("images/briefcase-icon.png") no-repeat scroll;
+    background-size: 16px 16px;
+    background-position: 7px 7px;
+}
+
+.location-search-inp {
+    background: white url("images/location-icon.png") no-repeat scroll;
+    background-size: 20px 20px;
+    background-position: 7px 7px;
+}
+
+.top-search-form input{
+    width: 100%;
+}
+
+input.form-control {
+    margin-right: 0px;
+}
+
+
+.inline-block {
+    display: inline-block;
+    text-align: left;
+    height: 100%;
+}
+
+.inline-block-2 {
+    display: inline-block;
+    width: 40%;
+}
+
+.inline-block-3 {
+    display: inline-block;
+    width: 20%;
+}
+
+.post-box{
+    box-shadow: 1px 1px 5px #888888;
+    height: 100%;
+    text-align: left;
+    //border-right: 1px solid #6e6e6e;
+    margin-right: 1em;
+    width: 23%;
+    padding: 20px 20px 20px 20px;
+    background-color: white;
+    border-radius: 3px;
+
+}
+
+.post-box img{
+    border-radius: 3px;
+    margin-bottom: 1em;
+}
+
+.post-box:hover{
+    box-shadow: 1px 1px 20px #888888;
+}
+
+.post-box .close {
+    visibility: hidden;
+}
+
+.post-box:hover .close {
+    visibility: visible;
+}
+
+
+.post-img, .post-link{
+    margin-left: 0px;
+}
+
+.dash {
+        position: absolute;
+        bottom: 32px;
+        left:20px;
+        width:15%;
+        height: 1px;
+        background-color:#6e6e6e;
+}
+
+
+.post-footer {
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: 20px;
+
+}
+
+.bg-title {
+    font-family: 'Overpass', cursive;
+    font-size: 150%;
+
+}
+
+.l-title {
+    font-family: 'Overpass', cursive;
+    font-size: 200%;
+}
+
+.xl-title {
+    font-family: 'Overpass', cursive;
+    font-size: 250%;
+}
+
+.n-text {
+    font-family: 'Overpass', cursive;
+    font-size: 100%;
+}
+
+.bg-text {
+    font-family: 'Overpass', cursive;
+    font-size: 120%;
+}
+
+.l-text {
+    font-family: 'Overpass', cursive;
+    font-size: 150%;
+}
+
+.xl-text {
+    font-family: 'Overpass', cursive;
+    font-size: 170%;
+}
+
+.black-text {
+    font-family: 'Overpass', cursive;
+    color: black;
+}
+
+
+
+
+.icon {
+    color: purple;
+    font-size: 200%;
+}
+
+.icon:hover {
+    box-shadow: 1px 1px 20px #888888;
+    border-radius: 15px;
+    color: rgba(128,0,128,0.8); //purple;
+    background-color: rgba(128,0,128,0.2); //purple;
+}
+
+.background-img {
+    width: 100%;
+    height: 100%;
+
+}
+
+.profile-pic {
+    position: relative;
+    top: -100px;
+}
+
+.profile-section{
+    padding: 0em;
+    margin: 0em;
+
+}
+
+.background-section {
+    padding: 0em;
+    margin: 0em;
+    height: 250px;
+    position: relative;
+}
+
+.rec-ad-section {
+    height: 100px;
+    padding: 0em;
+}
+
+.rec-ad-section .inline-block-2 {
+    width: 48%;
+}
+
+.box-ad-section {
+    padding: 0em;
+    height: 250px;
+    width: 250px;
+}
+
+.bottom {
+    //position: absolute;
+
+}
+
+.navbar-brand{
+    font-family: 'Mogra', cursive;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    color: #6e6e6e;
+}
+
+.profile-details-column {
+    margin-top: 1em;
+    text-align: center;
+}
+
+.profile-details {
+    text-align: center;
+}
+
+.profile-header {
+    text-align: center;
+
+}
+
+.profile-details {
+    position: relative;
+    top: -50px;
+
+
+}
+
+
+.ad-box {
+    margin-top: 1em;
+}
+
+.right-floater {
+    float: right;
+
+}
+
+.right-border {
+    border-right: 1px solid #6e6e6e;
+}
+
+.pad-2-em {
+    padding: 2em;
+}
+
+
+.footer{
+    background-color: rgba(255, 255, 255, 1);
+    text-align: center;
+    padding: 1em;
+    position: relative;
+    width: 100%;
+    bottom:0;
+}
+
+.white-section {
+    background-color: white;
+}
+
+.gray-section {
+    background-color: #f2f2f2;
+}
+
+.number-link{
+    font-family: 'Mogra', cursive;
+    font-size: 150%;
+    color: purple;
+}
+
+.job-desc-row {
+    margin-bottom: 2em;
+}
+
+.job-desc-row-dash {
+
+    position: relative;
+    bottom: 1em;;
+    width:15%;
+    height: 1px;
+    background-color:#6e6e6e;
+    width: 73%;
+    float: right;
+}
+
+.top-margin {
+    margin-top: 1em;
+}
+
+.post-manage {
+    height: 250px;
+}
+
+.no-padding {
+    padding: 0em;
+}
+
+.form-group {
+    text-align: center;
+    margin-bottom: 3em;
+}
+
+.form-horizontal {
+    padding: 4em;
+}
+
+.form-horizontal input {
+    width: 500px;
+    text-align: center;
+}
+
+.form-horizontal input, textarea{
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #d3d3d3;
+}
+
+.errorlist {
+    padding: 0em;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0px;
+}
+
+.flat-top {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.no-top-border {
+    border-top: none;
+}
+
+.no-bottom-border {
+    border-bottom: none;
+}
+
+.no-shadow {
+    box-shadow: none;
+}
+
+.tab-section {
+    margin: 0px;
+
+    border-radius: 0px;
+    border-right: 1px solid #d3d3d3;
+
+}
+
+.tab-section-inactive {
+    background-color: rgba(128,0,128,1); //purple;
+    color: #6e6e6e;
+    border: none;
+}
+/* cool tabbing theme between log in and sign up tabs
+.tab-section-inactive:hover {
+    background-color: white;
+}
+
+div:hover > .inactive-tab-text {
+    color: #6e6e6e;
+    font-weight: normal;
+}
+*/
+
+.tab-section-inactive:hover {
+    background-color: rgba(128,0,128,0.8); //purple;
+}
+
+div:hover > .inactive-tab-text {
+    font-weight: normal;
+}
+
+
+.inactive-tab-text{
+    color: white;
+}
+
+
