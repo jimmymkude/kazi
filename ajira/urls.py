@@ -16,6 +16,9 @@ urlpatterns = [
     # ajira/3
     url(r'^(?P<pk>[0-9]+)/$', views.PostDetailView.as_view(), name='detail'),
 
+    # ajira/search_list
+    url(r'^search_list/$', views.AjiraSearchListView.as_view(), name='ajira_search_list_view'),
+
     # ajira/add/post
     url(r'^add/post/$', views.PostCreateView.as_view(), name='add_post'),
 

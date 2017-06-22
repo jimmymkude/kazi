@@ -1,0 +1,17 @@
+{% extends 'ajira/base.html' %}
+
+{% block title %}Search Results | Ajira {% endblock %}
+{% block body %}
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                {% for result in result_list %}
+                <div>{{ forloop.counter }}</div>
+                <div> {{ result }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

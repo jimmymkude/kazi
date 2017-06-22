@@ -35,7 +35,7 @@
 
 
                 <ul class="nav navbar-nav navbar-right">
-                    <form class="navbar-form navbar-left" role="search" method="get" action="#">
+                    <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'ajira:ajira_search_list_view' %}">
                         <div class="form-group">
                             <input type="text" class="form-control search-inp" name="query" value="" placeholder="Search kazi">
                         </div>

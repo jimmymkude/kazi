@@ -3,10 +3,12 @@ from django.views import generic
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Q
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.forms.models import model_to_dict
+from itertools import chain
 
 from .forms import UserForm, UserLoginForm, PostCreateForm, PostEditForm, UserEditProfileForm, UserAddCareerInterestsForm, JobTitleForm, LocationForm
 from .models import Post, AjiraUser, CareerInterests, JobTitle, Location
@@ -14,6 +16,40 @@ from .serializers import PostSerializer
 
 import re
 
+def normalize_query(query_string,
+                    findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
+                    normspace=re.compile(r'\s{2,}').sub):
+    ''' Splits the query string in invidual keywords, getting rid of unecessary spaces
+        and grouping quoted words together.
+        Example:
+
+        >>> normalize_query('  some random  words "with   quotes  " and   spaces')
+        ['some', 'random', 'words', 'with quotes', 'and', 'spaces']
+
+    '''
+    return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
+
+
+def get_query(query_string, search_fields):
+    ''' Returns a query, that is a combination of Q objects. That combination
+        aims to search keywords within a model by testing the given search fields.
+
+    '''
+    query = None # Query to search for every search term
+    terms = normalize_query(query_string)
+    for term in terms:
+        or_query = None # Query to search for a given term in each field
+        for field_name in search_fields:
+            q = Q(**{"%s__icontains" % field_name: term})
+            if or_query is None:
+                or_query = q
+            else:
+                or_query = or_query | q
+        if query is None:
+            query = or_query
+        else:
+            query = query & or_query
+    return query
 
 # Create your views here.
 
@@ -57,11 +93,8 @@ class IndexView(generic.ListView):
 
                 print(location_regex)
 
-
-
-
                 recommended_posts = Post.objects.filter(title_lower__regex=title_regex)
-                #recommended_posts = Post.objects.filter(title_lower__regex=r'(software|engineering)')
+                # recommended_posts = Post.objects.filter(title_lower__regex=r'(software|engineering)')
                 print(recommended_posts)
             return render(request, self.template_name, {'user': user, self.context_object_name: recommended_posts})
 
@@ -386,6 +419,43 @@ class AddCareerInterests(generic.View):
     def is_valid(self, career_interests):
         return True
 
+
+class AjiraSearchListView(generic.View):
+    """
+        Display a List page filtered by the search query.
+        """
+    paginate_by = 10
+    template_name = 'ajira/ajira_search_list_view.html'
+
+    def get(self, request):
+        # result = super(AjiraSearchListView, self).get_queryset()
+        context = {}
+
+        if ('query' in request.GET) and request.GET['query'].strip():
+
+            query_string = request.GET['query']
+            print (query_string)
+            post_query = get_query(query_string, ['title_lower', 'description', 'company'])
+            user_query = get_query(query_string, ['first_name', 'last_name'])
+
+            print(post_query, user_query)
+
+            # found_posts = Post.objects.filter(post_query).order_by('-pub_date')
+            found_posts = Post.objects.filter(post_query)
+            found_users = AjiraUser.objects.filter(user_query)
+
+            print(found_posts, found_users)
+
+            result_list = list(chain(found_posts, found_users))
+            context = {
+                'query_string': query_string,
+                'result_list': result_list,
+                'found_posts': found_posts,
+                'found_users': found_users
+            }
+            print (result_list)
+        print(context)
+        return render(request, self.template_name, context)
 
 
 def view_resume(request):
