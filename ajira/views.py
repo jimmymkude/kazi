@@ -459,10 +459,10 @@ class AjiraSearchListView(generic.View):
 
 
 def view_resume(request):
-    resume_path = request.user.resume
-    with open(resume_path, 'r') as pdf:
+    resume_path = "media/" + str(request.user.resume)
+    with open(resume_path, 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
-        response['Content-Disposition'] = 'filename=my_resume.pdf'
+        response['Content-Disposition'] = 'inline; filename=some_file.pdf'
         return response
 
 
