@@ -8,8 +8,17 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 {% for result in result_list %}
-                <div>{{ forloop.counter }}</div>
-                <div> {{ result }}</div>
+                    <div>
+                        {% if result.1 == "post" %}
+                            <a href="{% url 'ajira:detail' result.0.id %}">
+                                {{ result.0 }}
+                            </a>
+                        {% else %}
+                            <a href="{% url 'ajira:view_profile' result.0.id %}">
+                                {{ result.0 }}
+                            </a>
+                        {% endif %}
+                    </div>
                 {% endfor %}
             </div>
         </div>

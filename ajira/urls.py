@@ -38,7 +38,7 @@ urlpatterns = [
     url(r'^edit/profile/(?P<pk>[0-9]+)/$', views.UserProfileEditView.as_view(), name='edit_profile'),
 
     # ajira/view/resume
-    url(r'^view/resume/$', views.view_resume, name='view_resume'),
+    url(r'^view/resume/(?P<pk>[0-9]+)$', views.view_resume, name='view_resume'),
 
     # ajira/career-interests
     url(r'^career-interests/(?P<pk>[0-9]+)/$', views.AddCareerInterests.as_view(), name='career_interests'),

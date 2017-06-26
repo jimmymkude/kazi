@@ -40,7 +40,7 @@
                                     <div class="company bg-text">{{ user.company_name }}</div>
                                     <div class="location bg-text">Bukoba, Tanzania</div>
                                     <div class="resume bg-text">
-                                        <a href="{% url 'ajira:view_resume' %}" style="
+                                        <a href="{% url 'ajira:view_resume' user.id %}" style="
                                             text-decoration: underline;
                                             color: purple;
                                         ">

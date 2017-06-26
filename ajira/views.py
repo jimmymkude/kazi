@@ -432,6 +432,12 @@ class AjiraSearchListView(generic.View):
         context = {}
 
         if ('query' in request.GET) and request.GET['query'].strip():
+            found_locs = []
+
+            if ('loc-query' in request.GET) and request.GET['loc-query'].strip():
+                loc_query_string = request.GET['loc-query']
+                loc_query = get_query(loc_query_string, ['region'])
+                found_locs = Location.objects.filter(loc_query)
 
             query_string = request.GET['query']
             print (query_string)
@@ -444,22 +450,28 @@ class AjiraSearchListView(generic.View):
             found_posts = Post.objects.filter(post_query)
             found_users = AjiraUser.objects.filter(user_query)
 
-            print(found_posts, found_users)
+            print(found_posts, found_users, found_locs)
 
-            result_list = list(chain(found_posts, found_users))
+            result_list = list(chain(found_posts, found_users, found_locs))
+            for i in range(len(result_list)):
+                if isinstance(result_list[i], Post):
+                    result_list[i] = (result_list[i], 'post')
+                else:
+                    result_list[i] = (result_list[i], 'user')
+
             context = {
                 'query_string': query_string,
                 'result_list': result_list,
                 'found_posts': found_posts,
-                'found_users': found_users
+                'found_users': found_users,
             }
             print (result_list)
         print(context)
         return render(request, self.template_name, context)
 
 
-def view_resume(request):
-    resume_path = "media/" + str(request.user.resume)
+def view_resume(request, pk):
+    resume_path = "media/" + str(AjiraUser.objects.get(pk=pk).resume)# str(request.user.resume)
     with open(resume_path, 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename=some_file.pdf'
